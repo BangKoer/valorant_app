@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:valorant_app/pages/description.dart';
-import 'package:valorant_app/pages/weapon.dart';
+import 'package:valorant_app/pages/role.dart';
 // import 'package:valorant_app/model/agentModel.dart';
 // import 'package:valorant_app/pages/loading.dart';
 import 'package:valorant_app/services/valo_fetchData.dart';
@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
 
   List _pages = [
     AgentsPage(),
-    WeaponPage(),
+    RolePage(),
   ];
 
   @override
