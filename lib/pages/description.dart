@@ -27,93 +27,7 @@ class Description extends StatelessWidget {
         child: Column(
           children: [
             // overall Desc
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  // AgentPict
-                  Container(
-                    width: 150,
-                    height: 180 * 2,
-                    child: Image.network(
-                      agents['fullPortrait'],
-                      scale: 6,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 25,
-                  ),
-                  // Desc
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Title
-                        SizedBox(height: 40),
-                        Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                agents['role']["displayName"],
-                                style: TextStyle(
-                                  fontFamily: "Enamela",
-                                  fontSize: 30,
-                                  color: Colors.white,
-                                  letterSpacing: 1.5,
-                                ),
-                              ),
-                              SizedBox(width: 19),
-                              Image.network(
-                                agents['role']["displayIcon"],
-                                scale: 5,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Container(
-                          child: Text(
-                            agents['role']["description"],
-                            softWrap: true,
-                            style: GoogleFonts.roboto(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 15),
-                        Text(
-                          "INFO",
-                          style: TextStyle(
-                            fontFamily: "Enamela",
-                            fontSize: 30,
-                            color: Colors.white,
-                            letterSpacing: 1.5,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Container(
-                          child: Text(
-                            agents['description'],
-                            softWrap: true,
-                            style: GoogleFonts.roboto(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            AgentDescriotion(agents: agents),
             SizedBox(height: 10),
             ListView.builder(
               shrinkWrap: true,
@@ -127,6 +41,106 @@ class Description extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class AgentDescriotion extends StatelessWidget {
+  const AgentDescriotion({
+    super.key,
+    required this.agents,
+  });
+
+  final Map agents;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          // AgentPict
+          Container(
+            width: 150,
+            height: 180 * 2,
+            child: Image.network(
+              agents['fullPortrait'],
+              scale: 6,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(
+            width: 25,
+          ),
+          // Desc
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Title
+                SizedBox(height: 40),
+                Container(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        agents['role']["displayName"],
+                        style: TextStyle(
+                          fontFamily: "Enamela",
+                          fontSize: 30,
+                          color: Colors.white,
+                          letterSpacing: 1.5,
+                        ),
+                      ),
+                      SizedBox(width: 19),
+                      Image.network(
+                        agents['role']["displayIcon"],
+                        scale: 5,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5),
+                Container(
+                  child: Text(
+                    agents['role']["description"],
+                    softWrap: true,
+                    style: GoogleFonts.roboto(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text(
+                  "INFO",
+                  style: TextStyle(
+                    fontFamily: "Enamela",
+                    fontSize: 30,
+                    color: Colors.white,
+                    letterSpacing: 1.5,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Container(
+                  child: Text(
+                    agents['description'],
+                    softWrap: true,
+                    style: GoogleFonts.roboto(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
