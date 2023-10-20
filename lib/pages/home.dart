@@ -15,25 +15,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int currentIndexPage = 0;
-  // List agentsValo = [];
-
-  // void setupAgentDatas() async {
-  //   Valorant_Data agendata = new Valorant_Data();
-  //   await agendata.getData();
-  //   setState(() {
-  //     // agentsValo = agendata.dataAgentValo;
-  //     agentsValo = agendata.dataAgentValo;
-  //   });
-  //   print(agentsValo.isEmpty);
-  // }
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   setupAgentDatas();
-  // }
-
   List _pages = [
     AgentsPage(),
     RolePage(),

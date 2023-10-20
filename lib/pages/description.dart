@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:valorant_app/pages/home.dart';
 import 'package:valorant_app/shared/color.dart';
 
 class Description extends StatelessWidget {
