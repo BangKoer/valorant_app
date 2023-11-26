@@ -102,89 +102,66 @@ class _HomeState extends State<Home> {
 class AgentsPage extends StatefulWidget {
   const AgentsPage({
     super.key,
-    // required this.agentsValo,
   });
-
-  // final List agentsValo;
-
   @override
   State<AgentsPage> createState() => _AgentsPageState();
 }
 
 class _AgentsPageState extends State<AgentsPage> {
-  List agentsValo = [];
-  void setupAgentDatas() async {
-    Valorant_Data agendata = new Valorant_Data();
-    await agendata.getData();
-    setState(() {
-      // agentsValo = agendata.dataAgentValo;
-      agentsValo = agendata.dataAgentValo;
-    });
-    print(agentsValo.isEmpty);
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    setupAgentDatas();
-  }
-
+  Valorant_Data fetchapi = new Valorant_Data();
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        // Filter
-        // Padding(
-        //   padding: const EdgeInsets.only(left: 8.0),
-        //   child: Container(
-        //     height: 80,
-        //     child: ListView(
-        //       scrollDirection: Axis.horizontal,
-        //       children: [
-        //         AgentCategory(category: "All"),
-        //         AgentCategory(category: "Duelist"),
-        //         AgentCategory(category: "Initiator"),
-        //         AgentCategory(category: "Controller"),
-        //         AgentCategory(category: "Sentinel"),
-        //       ],
-        //     ),
-        //   ),
-        // ),
         SizedBox(
           height: 40,
         ),
         // agent
         Expanded(
-          child: GridView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: agentsValo.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisExtent: 330,
-              mainAxisSpacing: 40,
-            ),
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            Description(agents: agentsValo[index]),
-                      ));
-                },
-                child: Agent(
-                  nama: agentsValo[index]["displayName"],
-                  photo: agentsValo[index]["fullPortrait"],
-                  bgphoto: agentsValo[index]["background"],
-                  color: int.parse(
-                      "0xff${agentsValo[index]["backgroundGradientColors"][0]}"),
-                ),
-              );
-            },
-          ),
+          child: FutureBuilder(
+              future: fetchapi.getData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(snapshot.error.toString()),
+                  );
+                } else {
+                  List agentsValo = snapshot.data!;
+                  return GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: agentsValo.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisExtent: 330,
+                      mainAxisSpacing: 40,
+                    ),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    Description(agents: agentsValo[index]),
+                              ));
+                        },
+                        child: Agent(
+                          nama: agentsValo[index]["displayName"],
+                          photo: agentsValo[index]["fullPortrait"],
+                          bgphoto: agentsValo[index]["background"],
+                          color: int.parse(
+                              "0xff${agentsValo[index]["backgroundGradientColors"][0]}"),
+                        ),
+                      );
+                    },
+                  );
+                }
+              }),
         ),
         SizedBox(
           height: 80,

@@ -187,13 +187,17 @@ class AbilityTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontFamily: "Enamela",
-                    fontSize: 30,
-                    color: Colors.white,
-                    letterSpacing: 1.5,
+                Container(
+                  width: 200,
+                  child: Text(
+                    name,
+                    softWrap: true,
+                    style: TextStyle(
+                      fontFamily: "Enamela",
+                      fontSize: 30,
+                      color: Colors.white,
+                      letterSpacing: 1.5,
+                    ),
                   ),
                 ),
                 SizedBox(height: 9),

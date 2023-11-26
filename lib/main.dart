@@ -1,7 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:valorant_app/firebase_options.dart';
 import 'package:valorant_app/pages/home.dart';
+import 'package:valorant_app/pages/login.dart';
+import 'package:valorant_app/pages/register.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -15,8 +21,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
+        '/login': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
         '/': (context) => Home(),
       },
     );
