@@ -36,7 +36,13 @@ class _RegisterPageState extends State<RegisterPage> {
         content: Text("Register Success!"),
         backgroundColor: Colors.green,
       ));
-      Navigator.pushNamed(context, '/login');
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ),
+        (route) => false,
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Error Register! Try again"),
@@ -168,7 +174,13 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.pushReplacementNamed(context, '/login');
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginPage(),
+              ),
+              (route) => false,
+            );
           },
           child: Text(
             "Login",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:valorant_app/pages/description.dart';
 import 'package:valorant_app/pages/role.dart';
+import 'package:valorant_app/services/firebase_authController.dart';
 // import 'package:valorant_app/model/agentModel.dart';
 // import 'package:valorant_app/pages/loading.dart';
 import 'package:valorant_app/services/valo_fetchData.dart';
@@ -20,6 +21,8 @@ class _HomeState extends State<Home> {
     RolePage(),
   ];
 
+  final FirebaseAuthController _auth = FirebaseAuthController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +32,15 @@ class _HomeState extends State<Home> {
         foregroundColor: Colors.white,
         toolbarHeight: 90,
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  _auth.signOut();
+                });
+              },
+              icon: Icon(Icons.logout))
+        ],
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

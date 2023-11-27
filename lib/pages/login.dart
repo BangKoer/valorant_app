@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:valorant_app/pages/home.dart';
 import 'package:valorant_app/pages/register.dart';
 import 'package:valorant_app/services/firebase_authController.dart';
 import 'package:valorant_app/shared/color.dart';
@@ -35,7 +36,13 @@ class _LoginPageState extends State<LoginPage> {
         content: Text("Login Success!"),
         backgroundColor: Colors.green,
       ));
-      Navigator.pushNamed(context, '/');
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+        (route) => false,
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Error Register! Try again"),
@@ -167,7 +174,13 @@ class _LoginPageState extends State<LoginPage> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.pushReplacementNamed(context, '/register');
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RegisterPage(),
+              ),
+              (route) => false,
+            );
           },
           child: Text(
             "Register",
