@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:valorant_app/pages/description.dart';
+import 'package:valorant_app/pages/profile.dart';
 import 'package:valorant_app/pages/role.dart';
 import 'package:valorant_app/services/firebase_authController.dart';
 // import 'package:valorant_app/model/agentModel.dart';
@@ -16,9 +17,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int currentIndexPage = 0;
-  List _pages = [
-    AgentsPage(),
-    RolePage(),
+  final List _pages = [
+    const AgentsPage(),
+    const RolePage(),
+    const ProfilePage(),
   ];
 
   final FirebaseAuthController _auth = FirebaseAuthController();
@@ -39,7 +41,7 @@ class _HomeState extends State<Home> {
                   _auth.signOut();
                 });
               },
-              icon: Icon(Icons.logout))
+              icon: const Icon(Icons.logout))
         ],
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,10 +50,10 @@ class _HomeState extends State<Home> {
               "assets/logo.png",
               height: 50,
             ),
-            SizedBox(width: 8),
-            Column(
+            const SizedBox(width: 8),
+            const Column(
               children: [
-                SizedBox(height: 3),
+                SizedBox(height: 8),
                 Text(
                   "Valorant",
                   style: TextStyle(
@@ -73,7 +75,7 @@ class _HomeState extends State<Home> {
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Align(
-              alignment: Alignment(0.0, 1.0),
+              alignment: const Alignment(0.0, 1.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: Container(
@@ -91,13 +93,17 @@ class _HomeState extends State<Home> {
                       });
                     },
                     items: [
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.person),
                         label: "Agent",
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.gamepad),
                         label: "Role",
+                      ),
+                      const BottomNavigationBarItem(
+                        icon: Icon(Icons.person_2),
+                        label: "Profile",
                       ),
                     ],
                   ),
@@ -126,42 +132,70 @@ class _AgentsPageState extends State<AgentsPage> {
     return ListView(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
-          child: Container(
-            height: 300,
-            width: 500,
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
+          padding: const EdgeInsets.all(12.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              width: 500,
               color: Maincolor,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "DEFY THE LIMITS",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    child: Image.asset(
+                      "assets/carousel.jpg",
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
-                ),
-                Text(
-                  softWrap: true,
-                  style: TextStyle(
-                    color: Colors.white,
-                    height: 1.3,
-                    fontSize: 16,
-                    wordSpacing: 1.3,
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "DEFY THE LIMITS",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Text(
+                          softWrap: true,
+                          style: TextStyle(
+                            color: Colors.white,
+                            height: 1.3,
+                            fontSize: 16,
+                            wordSpacing: 1.3,
+                          ),
+                          "Padukan gaya dan pengalamanmu di panggung kompetitif global. Kamu memiliki 13 ronde untuk menyerang dan mempertahankan sisimu dengan keahlian tembak-menembak sengit serta kemampuan taktis. Dengan satu nyawa per ronde, kamu harus berpikir lebih cepat daripada lawan jika ingin tetap hidup. Habisi musuh baik di mode Competitive maupun Unranked serta Deathmatch dan Spike Rush.",
+                        ),
+                      ],
+                    ),
                   ),
-                  "Padukan gaya dan pengalamanmu di panggung kompetitif global. Kamu memiliki 13 ronde untuk menyerang dan mempertahankan sisimu dengan keahlian tembak-menembak sengit serta kemampuan taktis. Dengan satu nyawa per ronde, kamu harus berpikir lebih cepat daripada lawan jika ingin tetap hidup. Habisi musuh baik di mode Competitive maupun Unranked serta Deathmatch dan Spike Rush.",
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
+          height: 10,
+        ),
+        const Padding(
+          padding: EdgeInsets.only(left: 20.0),
+          child: Text(
+            "Agents :",
+            style: TextStyle(
+              fontFamily: "Valorant",
+              fontSize: 28,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        const SizedBox(
           height: 40,
         ),
         // agent
@@ -170,7 +204,7 @@ class _AgentsPageState extends State<AgentsPage> {
               future: fetchapi.getData(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (snapshot.hasError) {
@@ -180,10 +214,11 @@ class _AgentsPageState extends State<AgentsPage> {
                 } else {
                   List agentsValo = snapshot.data!;
                   return GridView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: agentsValo.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisExtent: 330,
                       mainAxisSpacing: 40,
@@ -211,7 +246,7 @@ class _AgentsPageState extends State<AgentsPage> {
                 }
               }),
         ),
-        SizedBox(
+        const SizedBox(
           height: 80,
         ),
       ],
@@ -239,7 +274,7 @@ class Agent extends StatelessWidget {
         Container(
           width: 180,
           height: 270,
-          padding: EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
@@ -276,7 +311,7 @@ class Agent extends StatelessWidget {
         ),
         Text(
           nama,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: "Enamela",
             fontSize: 24,
             color: Colors.white,
@@ -308,7 +343,7 @@ class _AgentCategoryState extends State<AgentCategory> {
       child: FilterChip(
         label: Text(
           widget.category,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),

@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:valorant_app/pages/login.dart';
 import 'package:valorant_app/services/firebase_authController.dart';
@@ -14,22 +15,35 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool _isPasswordVisible = false;
-  final _userTextfieldcontroller = TextEditingController();
+  final _emailTextfieldcontroller = TextEditingController();
   final _passwordTextfieldcontroller = TextEditingController();
-  final FirebaseAuthController _auth = new FirebaseAuthController();
+  final _nameTextfieldcontroller = TextEditingController();
+  final _agentTextfieldcontroller = TextEditingController();
+  final CollectionReference _users =
+      FirebaseFirestore.instance.collection('users');
+  final FirebaseAuthController _auth = FirebaseAuthController();
 
   @override
   void dispose() {
     // TODO: implement dispose
-    _userTextfieldcontroller.dispose();
+    _emailTextfieldcontroller.dispose();
     _passwordTextfieldcontroller.dispose();
+    _nameTextfieldcontroller.dispose();
+    _agentTextfieldcontroller.dispose();
     super.dispose();
   }
 
   void signUp() async {
-    String email = _userTextfieldcontroller.text;
+    String email = _emailTextfieldcontroller.text;
     String password = _passwordTextfieldcontroller.text;
+    String name = _nameTextfieldcontroller.text;
+    String agent = _agentTextfieldcontroller.text;
     User? user = await _auth.registerwithEmailandPassword(email, password);
+    await _users.doc(user!.uid).set({
+      'name': name,
+      'email': email,
+      'main': agent,
+    });
     if (user != null) {
       print("Register Success");
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -39,7 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginPage(),
+          builder: (context) => const LoginPage(),
         ),
         (route) => false,
       );
@@ -65,7 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               const SizedBox(height: 20),
               const SizedBox(height: 20),
-              Text(
+              const Text(
                 "Register",
                 style: TextStyle(
                   fontSize: 30,
@@ -75,9 +89,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               const SizedBox(height: 40),
-              buildInputField('Enter your email', Icons.email),
+              buildInputField(
+                  'Enter your Name', Icons.person, _nameTextfieldcontroller),
               const SizedBox(height: 15),
-              buildPasswordInputField('Enter your password', Icons.lock_person),
+              buildInputField('Enter your Main Character', Icons.support_agent,
+                  _agentTextfieldcontroller),
+              const SizedBox(height: 15),
+              buildInputField(
+                  'Enter your email', Icons.email, _emailTextfieldcontroller),
+              const SizedBox(height: 15),
+              buildPasswordInputField(
+                'Enter your password',
+                Icons.lock_person,
+              ),
               const SizedBox(height: 30),
               buildRegisterButton(),
               const SizedBox(height: 20),
@@ -90,7 +114,8 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget buildInputField(String hintText, IconData icon) {
+  Widget buildInputField(
+      String hintText, IconData icon, TextEditingController controller) {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFFF7F8F9),
@@ -102,16 +127,16 @@ class _RegisterPageState extends State<RegisterPage> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: TextFormField(
-          controller: _userTextfieldcontroller,
+          controller: controller,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,
-            hintStyle: TextStyle(
+            hintStyle: const TextStyle(
               color: Color(0xFF8391A1),
             ),
             prefixIcon: Icon(
               icon,
-              color: Color(0xFF8391A1),
+              color: const Color(0xFF8391A1),
             ),
           ),
         ),
@@ -136,12 +161,12 @@ class _RegisterPageState extends State<RegisterPage> {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,
-            hintStyle: TextStyle(
+            hintStyle: const TextStyle(
               color: Color(0xFF8391A1),
             ),
             prefixIcon: Icon(
               icon,
-              color: Color(0xFF8391A1),
+              color: const Color(0xFF8391A1),
             ),
             suffixIcon: GestureDetector(
               onTap: () {
@@ -151,7 +176,7 @@ class _RegisterPageState extends State<RegisterPage> {
               },
               child: Icon(
                 _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                color: Color(0xFF8391A1),
+                color: const Color(0xFF8391A1),
               ),
             ),
           ),
@@ -177,7 +202,7 @@ class _RegisterPageState extends State<RegisterPage> {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => LoginPage(),
+                builder: (context) => const LoginPage(),
               ),
               (route) => false,
             );
