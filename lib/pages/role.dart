@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:valorant_app/pages/role_list.dart';
 import 'package:valorant_app/shared/color.dart';
 
 class RolePage extends StatelessWidget {
@@ -52,48 +53,57 @@ class RoleItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Maincolor,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          children: [
-            // Weapon Image
-            SizedBox(
-              width: 15,
-            ),
-            Image.network(
-              icon,
-              scale: 2.8,
-            ),
-            SizedBox(
-              width: 15,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Weapon Name
-                Text(
-                  name.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: "Enamela",
-                    fontSize: 28,
-                    color: SecondColor,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RoleList(roleString: name),
+              ));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Maincolor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Row(
+            children: [
+              // Weapon Image
+              SizedBox(
+                width: 15,
+              ),
+              Image.network(
+                icon,
+                scale: 2.8,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Weapon Name
+                  Text(
+                    name.toUpperCase(),
+                    style: TextStyle(
+                      fontFamily: "Enamela",
+                      fontSize: 28,
+                      color: SecondColor,
+                    ),
                   ),
-                ),
-                Text(
-                  type,
-                  style: GoogleFonts.roboto(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    type,
+                    style: GoogleFonts.roboto(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(height: 8),
-              ],
-            ),
-          ],
+                  SizedBox(height: 8),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

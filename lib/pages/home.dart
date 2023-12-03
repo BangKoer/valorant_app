@@ -125,6 +125,42 @@ class _AgentsPageState extends State<AgentsPage> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
+          child: Container(
+            height: 300,
+            width: 500,
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Maincolor,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "DEFY THE LIMITS",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                Text(
+                  softWrap: true,
+                  style: TextStyle(
+                    color: Colors.white,
+                    height: 1.3,
+                    fontSize: 16,
+                    wordSpacing: 1.3,
+                  ),
+                  "Padukan gaya dan pengalamanmu di panggung kompetitif global. Kamu memiliki 13 ronde untuk menyerang dan mempertahankan sisimu dengan keahlian tembak-menembak sengit serta kemampuan taktis. Dengan satu nyawa per ronde, kamu harus berpikir lebih cepat daripada lawan jika ingin tetap hidup. Habisi musuh baik di mode Competitive maupun Unranked serta Deathmatch dan Spike Rush.",
+                ),
+              ],
+            ),
+          ),
+        ),
         SizedBox(
           height: 40,
         ),
