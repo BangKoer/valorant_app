@@ -92,16 +92,16 @@ class _HomeState extends State<Home> {
                         currentIndexPage = value;
                       });
                     },
-                    items: [
-                      const BottomNavigationBarItem(
+                    items: const [
+                      BottomNavigationBarItem(
                         icon: Icon(Icons.person),
                         label: "Agent",
                       ),
-                      const BottomNavigationBarItem(
+                      BottomNavigationBarItem(
                         icon: Icon(Icons.gamepad),
                         label: "Role",
                       ),
-                      const BottomNavigationBarItem(
+                      BottomNavigationBarItem(
                         icon: Icon(Icons.person_2),
                         label: "Profile",
                       ),
@@ -290,7 +290,7 @@ class Agent extends StatelessWidget {
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              stops: [0.4, 1.0],
+              stops: const [0.4, 1.0],
             ),
           ),
           child: OverflowBox(

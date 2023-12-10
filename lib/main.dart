@@ -26,13 +26,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             return MaterialApp(
               title: 'Flutter Demo',
-              // initialRoute: snapshot.data != null ? '/' : 'login',
               home: snapshot.data != null ? Home() : LoginPage(),
-              // routes: {
-              //   '/login': (context) => LoginPage(),
-              //   '/': (context) => Home(),
-              //   '/register': (context) => RegisterPage(),
-              // },
             );
           }
           return Loading();
