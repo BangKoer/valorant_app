@@ -1,6 +1,6 @@
-# valorant_app
+# Valorant_app
 
-A new Flutter project.
+A new Flutter project. This app provides you all information about Agents, like skills, role, etc. This program using Open API as the datas, and using Firebase for authentication and storing users data. this application is still far from perfect, but i hope this is a small step for me to be a good Flutter Developer.
 
 ## Getting Started
 
