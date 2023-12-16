@@ -74,14 +74,19 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
+              Image.asset(
+                "assets/logo.png",
+                height: 100,
+              ),
               const SizedBox(height: 20),
               const Text(
                 "Register",
                 style: TextStyle(
+                  fontFamily: "Valorant",
                   fontSize: 30,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,

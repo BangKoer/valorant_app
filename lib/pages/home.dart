@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:valorant_app/pages/description.dart';
+import 'package:valorant_app/pages/login.dart';
 import 'package:valorant_app/pages/profile.dart';
 import 'package:valorant_app/pages/role.dart';
 import 'package:valorant_app/services/firebase_authController.dart';
@@ -40,6 +41,12 @@ class _HomeState extends State<Home> {
                 setState(() {
                   _auth.signOut();
                 });
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ),
+                    (route) => false);
               },
               icon: const Icon(Icons.logout))
         ],

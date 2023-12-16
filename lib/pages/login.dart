@@ -60,14 +60,19 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
+              Image.asset(
+                "assets/logo.png",
+                height: 100,
+              ),
               const SizedBox(height: 20),
               Text(
                 "Login",
                 style: TextStyle(
+                  fontFamily: "Valorant",
                   fontSize: 30,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
